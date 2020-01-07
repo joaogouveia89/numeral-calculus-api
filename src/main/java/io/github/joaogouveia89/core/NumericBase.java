@@ -24,6 +24,12 @@ public class NumericBase {
 		return conversions.get(base);
 	}
 	
+	public HashMap<Integer, String> getAllConversions() throws NumericBaseException{
+		if(!validNumber)
+			throw new NumericBaseException(NumericBaseException.MALFORMED_OBJECT_REBUILD);
+		return conversions;
+	}
+	
 	public static class Builder {
 		private int base = DECIMAL;
 		private String input;

@@ -1,5 +1,8 @@
 package io.github.joaogouveia89.routes;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +15,9 @@ import io.github.joaogouveia89.core.NumericBase.Builder.NumericBaseException;
 @RequestMapping("/numericbase")
 public class NumericBaseController {
 	@RequestMapping(method = RequestMethod.GET)
-	public String convert(@RequestParam(value = "number", required = true) String number) throws NumericBaseException {
+	public HashMap<Integer, String> convert(
+			@RequestParam(value = "number", required = true) String number,
+			@RequestParam(value = "outputBases", required = false) List<Integer> bases) throws NumericBaseException {
 		NumericBase numericBase = new NumericBase.Builder()
 				.setNumber(number)
 				.setInputBase(2)
@@ -21,6 +26,6 @@ public class NumericBaseController {
 				.addOutputBase(NumericBase.OCTAL)
 				.addOutputBase(NumericBase.HEXADECIMAL)
 				.build();
-		return numericBase.getConversion(NumericBase.DECIMAL).toString();
+		return numericBase.getAllConversions();
 	}
 }
