@@ -1,4 +1,4 @@
-package io.github.joaogouveia89.routes;
+package io.github.joaogouveia89.routes.controllers;
 
 import java.util.List;
 
@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import io.github.joaogouveia89.core.numericbase.NumericBase;
 import io.github.joaogouveia89.core.numericbase.NumericBaseConversion;
 import io.github.joaogouveia89.core.numericbase.NumericBaseConversion.Builder.NumericBaseException;
+import io.github.joaogouveia89.routes.Routes;
 
 @RestController
-@RequestMapping("/numericbase")
+@RequestMapping(Routes.NumericBase.ROOT)
 public class NumericBaseController {
-	@RequestMapping(method = RequestMethod.GET, path = "/convert/{number}/{base}")
+	@RequestMapping(method = RequestMethod.GET, path = Routes.NumericBase.CONVERT)
 	public List<NumericBase> convert(
 			@PathVariable String number,
 			@PathVariable int base) throws NumericBaseException {
