@@ -1,8 +1,9 @@
 package io.github.joaogouveia89.core.numericbase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.github.joaogouveia89.core.numericbase.NumericBaseConversion.Builder.NumericBaseException;
 
@@ -58,18 +59,10 @@ public class NumericBaseConversion {
 			return c;
 		}
 		
-		private boolean ownsToPossibleCharactersSet(char c) {
-			int characterInt = (int) c;
-			return (nb.getBase() < 11 && characterInt > 47 && characterInt < (48 + nb.getBase())) ||
-					(nb.getBase() > 10 && characterInt > 47 && characterInt < 58 || nb.getBase() > 10 && characterInt > 64 && characterInt < (65 + nb.getBase() - 10));
-		}
-		
 		private boolean isValid() {
-			for(int i = 0; i < nb.getNumber().length(); i++) {
-				if(!ownsToPossibleCharactersSet(nb.getNumber().charAt(i)))
-					return false;
-			}
-			return true;
+			Pattern pat = Pattern.compile(NumericBase.VALIDATION_REGEX.get(this.nb.getBase()));
+			Matcher mat = pat.matcher(nb.getNumber());
+			return mat.matches();
 		}
 		
 		private NumericBase toDecimal() {
